@@ -1,0 +1,31 @@
+<script>
+/*모든 프로그래밍 언어에는 배열이 지원됨, 단 표기 형식이 약간씩 틀림
+*/
+let arr=["apple", "banana", "graph"];
+let car=["BMW", "AUDI", "Benz"];
+let skill=["java", "jsp","spring"];
+
+for(let i=0; i<skill.length;i++){
+    console.log(skill[i]);
+}
+
+/*일차원 배열이 모여진 또 다른 배열을 이차원 배열이라 함*/
+let box=[
+    arr,car,skill
+];
+
+for(let i=0;i<box.length;i++){ //층
+    for(let a=0;a<box[i].length;a++){ //호수
+        console.log(box[i][a]);
+    }
+    //console.log("\n");//층수만큼 줄바꿈
+}
+</script>
+
+
+
+
+
+
+
+

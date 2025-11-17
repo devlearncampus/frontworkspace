@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            width: 800px;
+            height: 600px;
+            border:1px solid blue;
+            margin:auto; /* 현재 요소의 좌,우 여백인 마진을 css가 스스로 계산하여 동일하게 양분함*/
+            position: relative; /*자식에게 포지션이 명시되었으므로, 부모도 포지션이 명시되어야 한다..
+                                        css가 지원하는 포지션 중 상대위치를 사용해보자*/
+        }
+        img{
+            width: 50px;  /*너비만 적용하면, 높이는 알아서 비율로 자동 조절됨, 즉 비율을 유지할 수 있음*/
+            position: absolute;
+            left:0px;
+            /*자식 요소에 포지션이 설정되면, 반드시 부모에도 포지션이 명시되어야 한다*/
+        }
+    </style>
+    <script>
+        let x=0;//전역변수 선언
+
+        //문서내의 pic 이라는 아이디값을 갖는 요소의 x위치 속성값을 증가시키자!!
+        function moveRight(){
+            let pic=document.getElementById("pic");
+
+            //증가값 설정 
+            x+=10;
+            pic.style.left=x+"px";
+        }   
+        function moveLeft(){
+            let pic=document.getElementById("pic");
+
+            //증가값 설정 
+            x-=10;
+            pic.style.left=x+"px";            
+        }
+    </script>
+</head>
+<body>
+    
+    <button onClick="moveRight()">x값 증가</button>
+    <button onClick="moveLeft()">x값 감소</button>
+
+    <div class="container">
+        <img id="pic" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSOLs0GqL3w42onHUpGCNorl7XaGUCRSmGjXKH5t7PjgMpl6Ty7B86gFfW3dySKFn0huI&usqp=CAU">
+    </div>
+
+</body>
+</html>

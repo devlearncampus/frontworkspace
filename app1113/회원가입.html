@@ -1,0 +1,93 @@
+<!--
+1.CSS란?
+    HTML 문서의 디자인적 한계를 해결하기 위한 기술
+
+2.적용방법 (3가지)
+    1) 인라인 CSS - 적용 대상이 되는 태그에 직접 작성하는 방식  style=""
+                        적용 대상이 다수일때는 코드 중복이 발생 
+
+    2) 임베디드 방식 - <style> 태그로 원하는 디자인을 정의하는 방식
+
+    3) 링크 방식 - 여러 파일에 동일한 스타일을 적용할 수 있다(재사용성이 높다)
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <link rel="stylesheet" href="./css/style.css">
+
+    <style>
+    </style>
+
+</head>
+<body>
+    <table border="1px" align="center" width="600px">
+        <tr>
+            <td colspan="2" align="center" style="font-size:10px">
+                회원가입
+            </td>
+        </tr>
+        <tr>
+            <td>ID</td>
+            <td><input type="text" placeholder="아이디 입력" ></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><input type="password" maxlength="8" placeholder="비밀번호 입력(8자 이하)"></td>
+        </tr>
+        <tr>
+            <td>name</td>
+            <td><input type="text" placeholder="이름 입력"></td>
+        </tr>
+        <tr>
+            <td>이메일</td>
+            <td>
+                <input type="text">@                    
+                <select>
+                    <option value="">메일 서버 </option>
+                    <option value="google.com">구글</option>
+                    <option value="naver.com">네이버</option>
+                    <option value="daum.net">다음</option>
+                    <option value="direct">직접입력</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>보유기술</td>
+            <td>
+                <input type="checkbox">Java
+                <input type="checkbox">Spring                    
+                <input type="checkbox">Oracle                    
+                <input type="checkbox">React                    
+            </td>
+        </tr>
+        <tr>
+            <td>경력사항</td>
+            <td>
+                <!-- area 사이에는 엔터 같은 공백을 적용하면 안됨 -->
+                <textarea rows="10" cols="70"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>개인정보 수신 동의</td>
+            <td>
+                <!-- 아래의 두 radio 컴포넌트에 대해 양자택일(하나만 선택하게)하게 하려면
+                    메모리에 올라갈때, 배열화 시켜야 함  
+                -->
+                <input type="radio" name="receive">동의
+                <input type="radio" name="receive">미동의
+            </td>
+        </tr>
+        <tr align="center">
+            <td colspan="2">
+                <button>등록</button>
+                <button>로그인</button>
+            </td>
+        </tr>
+
+    </table>
+</body>
+</html>

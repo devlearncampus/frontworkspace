@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let n=1;
+
+        function next(){
+            n++;
+            //문서내의 pic 이라는 아이디를 갖는 요소의 src 의 이미지 경로값을 변경하자!!
+            let pic=document.getElementById("pic");
+            pic.src=`./images/hero/image${n}.png`;
+            if(n>=18)n=0;
+        } 
+        
+        //자동이란? 이미 존재하는 수동코드를 컴퓨터에게 맡기는 것!!
+        function auto(){
+            //자바스크립트 언어로 하여금, 지정된 간격으로 지속적으로  next() 함수를 호출하게 하자!!
+            setInterval("next()", 10);  //1000분의 1초까지 표현가능
+        }
+    </script>
+</head>
+<body>
+    <p>
+        <button onClick="next()">수동</button>
+        <button onClick="auto()">자동</button>
+    </p>
+
+    <p>
+        <img src="./images/hero/image1.png" id="pic">        
+    </p>
+
+</body>
+</html>

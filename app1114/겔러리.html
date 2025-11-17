@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            width: 700px;
+            height: 600px;
+            background-color: aqua;
+            margin: auto;
+        }
+        .aside{
+            width: 100px;
+            height: 100%;
+            background-color: bisque;
+            float:left;
+            text-align: center; /*div 내의 컨텐트를 가운데 정렬*/
+            overflow:scroll; /*현재 요소 안에 들어있는 컨텐트가 보다 데이터가 많아질때 어떻게 처리할지?*/
+        }
+        .content{
+            width: 600px;
+            height: 100%;
+            background-color: azure;
+            float:left;
+            text-align: center;
+        }
+
+        /*문서내의 썸네일에 대한 스타일 */
+        .thumb{
+            width: 90px; 
+            border:2px solid red;
+        }
+        .view{
+            width: 550px;
+            height: 550px;            
+        }
+    </style>
+    <script>
+        //문서내의 content 안에 들어있는 img의 src값을 교체!!
+        //접근방법(selector )은 여러가지가 잇음 
+        // content img (후손 선택자), view(클래스 선택자)
+        function setImg(path){
+            let img=document.querySelector(".content img");
+            img.src=path;
+            console.log("넘겨받은 이미지 경로는 ", path);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="aside">
+            <img src="./images/geographic/bear.jpg" alt="" class="thumb">
+            <img src="./images/geographic/cosmos.jpg" alt="" class="thumb" onMouseOver="setImg(this.src)">
+            <img src="./images/geographic/diver.jpg" alt="" class="thumb" onMouseOver="setImg(this.src)">
+            <img src="./images/geographic/fish.jpg" alt="" class="thumb" onMouseOver="setImg(this.src)">
+            <img src="./images/geographic/fox.jpg" alt="" class="thumb" onMouseOver="setImg(this.src)">
+            <img src="./images/geographic/lion.jpg" alt="" class="thumb" onMouseOver="setImg(this.src)">
+            <img src="./images/geographic/mouse.jpg" alt="" class="thumb" onMouseOver="setImg(this.src)">
+            <img src="./images/geographic/sunset.jpg" alt="" class="thumb" onMouseOver="setImg(this.src)">
+            <img src="./images/geographic/turtle.jpg" alt="" class="thumb" onMouseOver="setImg(this.src)">
+        </div>
+        <div class="content">
+            <img src="./images/geographic/bear.jpg" class="view">
+        </div>
+    </div>
+</body>
+</html>
