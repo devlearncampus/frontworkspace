@@ -30,26 +30,82 @@
             background-color: blueviolet;
             float:left;
         }
+        .aside{
+            overflow: scroll;
+        }
+        .aside img{
+            width: 90px;
+        }
+        .content img{
+            width: 100%;
+            height: 500px;
+        }
     </style>
+    <script>
+        //겔러리에 사용될 이미지를 메모리에 올려놓되, 그 순서는 개발자가 임의로 정할 수 잇어야 한다.
+        //따라서 배열을 이용할 수 잇다 
+        let photo=[
+            "../images/geographic/bear.jpg",
+            "../images/geographic/cosmos.jpg",
+            "../images/geographic/diver.jpg",
+            "../images/geographic/fish.jpg",
+            "../images/geographic/fox.jpg",
+            "../images/geographic/lion.jpg",
+            "../images/geographic/mouse.jpg",
+            "../images/geographic/sunset.jpg",
+            "../images/geographic/turtle.jpg"
+        ]
+
+        //다음 버튼을 누르면, 메모리에 올라온 전역 변수인 photo 배열의 index를 1씩 증가시켜 화면에 출력
+        let index=0; //1씩 누적되거나 감소되어야 하므로, 이 변수는 전역변수로 선언
+
+        function prev(){
+            index--;
+            console.log(photo[index]);
+            //시각화 - 문서내의 큰 이미지의 경로를 , 현재 배열값으로 바꾸자!!
+            let pic=document.querySelector(".content img"); //js가 css의 선택자를 이용하여 문서에 접근하는 방법
+            pic.src=photo[index];
+        }
+
+        function next(){
+            index++;
+            console.log(photo[index]);
+            //시각화 - 문서내의 큰 이미지의 경로를 , 현재 배열값으로 바꾸자!!
+            let pic=document.querySelector(".content img"); //js가 css의 선택자를 이용하여 문서에 접근하는 방법
+            pic.src=photo[index];
+        }
+
+        //좌측 썸네일을 선택하면, 우측의 큰 이미지가 선택한 이미지로 대체 
+        function view(n){
+            index=n;
+            //console.log("매개변수로 전달된 obj 는 ", obj);
+            document.querySelector(".content img").src=photo[index];
+            //header에 들어있는 버튼에 의한 겔러리가 index를 이용하므로, 각 썸네일을 선택하면
+            //index 를 제어해줘야 한다..
+
+        }
+    </script>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <button>이전</button>
-            <button>다음</button>
+            <button onClick="prev()">이전</button>
+            <button onClick="next()">다음</button>
         </div>
         <div class="aside">
-            <img src="../images/bear.jpg" alt="">
-            <img src="../images/cosmos.jpg" alt="">
-            <img src="../images/diver.jpg" alt="">
-            <img src="../images/fish.jpg" alt="">
-            <img src="../images/fox.jpg" alt="">
-            <img src="../images/lion.jpg" alt="">
-            <img src="../images/mouse.jpg" alt="">
-            <img src="../images/sunset.jpg" alt="">
-            <img src="../images/turtle.jpg" alt="">
+            <img src="../images/geographic/bear.jpg" alt="" onClick="view(0)">
+            <img src="../images/geographic/cosmos.jpg" alt="" onClick="view(1)">
+            <img src="../images/geographic/diver.jpg" alt="" onClick="view(2)">
+            <img src="../images/geographic/fish.jpg" alt="" onClick="view(3)">
+            <img src="../images/geographic/fox.jpg" alt="" onClick="view(4)">
+            <img src="../images/geographic/lion.jpg" alt="" onClick="view(5)">
+            <img src="../images/geographic/mouse.jpg" alt="" onClick="view(6)">
+            <img src="../images/geographic/sunset.jpg" alt="" onClick="view(7)">
+            <img src="../images/geographic/turtle.jpg" alt="" onClick="view(8)">
         </div>
-        <div class="content"></div>
+        <div class="content">
+            <img src="../images/geographic/bear.jpg" alt="">
+        </div>
     </div>
 </body>
 </html>
