@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            width: 600px;
+            height: 550px;
+            background-color: antiquewhite;
+            margin: auto;
+        }
+        .header{
+            width: 100%;
+            height: 50px;
+            background-color: aqua;
+            text-align: center; /*컨텐츠의 수평 정렬*/            
+            line-height: 50px;
+        }
+        .aside{
+            width: 100px;
+            height: 500px;
+            background-color: blue;
+            float:left; /*띄우게 되면 block의 수평선상의 배척 속성이 사라짐..*/
+        }
+        .content{
+            width: 500px;
+            height: 500px;
+            background-color: blueviolet;
+            float:left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button>이전</button>
+            <button>다음</button>
+        </div>
+        <div class="aside">
+            <img src="../images/bear.jpg" alt="">
+            <img src="../images/cosmos.jpg" alt="">
+            <img src="../images/diver.jpg" alt="">
+            <img src="../images/fish.jpg" alt="">
+            <img src="../images/fox.jpg" alt="">
+            <img src="../images/lion.jpg" alt="">
+            <img src="../images/mouse.jpg" alt="">
+            <img src="../images/sunset.jpg" alt="">
+            <img src="../images/turtle.jpg" alt="">
+        </div>
+        <div class="content"></div>
+    </div>
+</body>
+</html>
