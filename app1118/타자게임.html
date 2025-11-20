@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            width: 400px;
+            height: 200;
+            margin: auto;
+        }
+        .txt{
+            width: 100%;
+            height: 200px;
+            background-color: antiquewhite;
+            font-size:85px;
+            text-align: center;
+            line-height:200px;
+        }
+        .keyinput{
+            width: 100%;
+            height: 150px;
+            background-color: aquamarine;
+        }
+        
+        /*.keyinput 이라는 클래스 내부의 자식들...중 input(후손 선택자)*/
+        .keyinput input{
+            width: 96%;
+            height: 98%;
+            background-color: rgb(0, 255, 0);
+            font-size:75px;
+        }
+
+        .feedback{
+            width: 100%;
+            height: 150px;
+            background-color: azure;
+            font-size:90px;
+            font-weight: bold; /*텍스트 두껍게*/
+            line-height: 150px;/*텍스트 수직 정렬-가운데*/
+            text-align: center; /*수평 정렬*/
+        }
+        .footer{
+            width: 100%;
+            height: 100px;
+            background-color: bisque;
+            font-size:50px;
+            font-weight: bold; /*텍스트 두껍게*/
+            line-height: 100px;/*텍스트 수직 정렬-가운데*/
+            text-align: center; /*수평 정렬*/    
+            color:red;        
+        }
+    </style>
+ <script>
+        //게임에 사용할 데이터를 메모리에 올리기
+        let word=["독수리","장갑","니트","알프스","목성","마우스","케익","자동차","컴퓨터","독후감"];
+        let index=0;
+        let score=0; //점수는 게임이 진행될때 계속 유지되어야 하므로, 전역변수로 선언
+
+        //점수 출력 함수(게임 진행에 잇어 재사용성이 높으면 함수로 정의, 즉 점수는 수시로 출력해야 하므로..)
+        function printScore(){
+              let footer=document.querySelector(".footer");
+              footer.innerText=score+"점";
+        }
+
+        //문서내의  txt 라는 클래스 요소의 태그와 태그 사이에 문자열 껴넣기!!
+        function init(){
+            //단어 출력
+            let txt=document.querySelector(".txt");
+            txt.innerText=word[index];
+            
+            //점수출력
+            printScore();
+        }
+
+        //현재 유저가 보고 있는 단어의 다음 단어가 나오도록 처리 !!
+        // "다음" 이라는 개념이 있다는 것은 곧 순서가 존재한다는 것이고, 순서가 존재하려면 
+        // 데이터는 일렬로 늘어진 배열이어야 함
+        function next(){
+            //문서내의 txt  라는 클래스를 갖는 요소의 innerText에 다음 배열값 출력 
+            if(event.keyCode==13){//엔터키를 눌럿을때만..
+                //입력한 단어와 출력된 단어가 일치할때만...
+                //문서내의 .keyinput 클래스의 자식 중 input 이라는 요소의 현재 값이, txt의 사이값인 innerText와 일치하면..
+                if(document.querySelector(".keyinput input").value == document.querySelector(".txt").innerText){
+                    //즉 단어를 제대로 입력한 사람이라면...O 라는 피드백, 점수 10증가 
+                    index++;
+                    let txt=document.querySelector(".txt");
+                    txt.innerText=word[index];
+
+                    //OX 피드백 
+                    document.querySelector(".feedback").innerText="O"; //맞음의 시각화
+                    document.querySelector(".keyinput input").value="";//빈 문자열로 다시 초기화
+
+                    //점수 증가 
+                    score+=10;
+                    printScore();//점수 출력
+                }else{
+                    document.querySelector(".feedback").innerText="X"; //틀림의 시각화
+                }
+            }
+        }
+    </script>    
+</head>
+<!--HTML 문서가 모두 로드되면, 발생하는 이벤트인 load 이벤트를 처리하는 onLoad 이벤트 핸들러 사용 -->
+<body onLoad="init()">
+    <div class="container">
+        <div class="txt">
+            
+        </div>
+        <div class="keyinput"><input type="text" onKeyUp="next()"></div>
+        <div class="feedback"></div>
+        <div class="footer"></div>
+    </div>
+</body>
+</html>
+   
