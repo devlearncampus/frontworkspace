@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .stage{
+            width:100%;
+            height: 700px;
+            background-color: yellow;
+        }
+    </style>
+    <script>
+        class Bullet{
+            constructor(container,x,y,width,height,bg, velX, velY){
+                this.container=container;
+                this.div=document.createElement("div");
+                this.x=x;
+                this.y=y;
+                this.velX=velX;
+                this.velY=velY;
+                this.width=width;
+                this.height=height;           
+                this.bg=bg;    
+
+                this.init();      
+            }
+            init(){
+                this.div=document.createElement("div");
+                this.div.style.position="absolute";
+                this.div.style.left=this.x;
+                this.div.style.top=this.y;
+                this.div.style.width=this.width+"px";
+                this.div.style.height=this.height+"px";
+                this.div.style.background=this.bg;
+                this.div.style.borderRadius=50+"%";
+
+                this.container.appendChild(this.div);
+
+                setInterval(()=>{
+                    this.move();                    
+                },10);
+            }
+            move(){
+                this.x+=this.velX;
+                this.y+=this.velY;
+                
+                this.div.style.left=this.x+"px";
+            }
+        }
+
+        function createBullet(stage){
+            //container,x,y,width,height,bg
+            let bullet = new Bullet(stage, 0,100,30,30,"red",10,0);
+        }
+
+        addEventListener("load", function(){
+                document.body.addEventListener("keydown", function(){
+                createBullet(document.getElementById("stage"));
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="stage"></div>
+</body>
+</html>
