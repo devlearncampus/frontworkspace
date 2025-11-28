@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            width: 1200px;
+            height: 500px;
+            background-color: aqua;
+            margin: auto;
+        }
+        .aside{
+            width: 200px;
+            height: 100%;
+            background-color: antiquewhite;
+            float: left;
+        }
+        .aside *{
+            width: 90%;
+            margin-bottom: 3px;
+        }
+        .aside img{
+            width: 90%;
+            height: 100px;
+        }
+        textarea{
+            height: 150px;
+        }
+        .content{
+            width: 1000px;
+            height: 100%;
+            background-color: aquamarine;
+            float:left;
+        }
+    </style>
+    <script>
+        //마커 이미지 배열 
+        let foodName=["비빔밥","햄버거","국수","초밥"]; //<option>비빔밥</option>
+        let iconArray=["bibimbap.png","burger.png","noodle.png","sushi.png"];//<option value="bibimbap.png">비빔밥</option>
+
+        function init(){
+            //마커를 동적으로 채우기 !!
+            //icon 이라는 아이디로 메모리에 올라온 select DOM의 자식 요소인 option DOM을 동적으로 
+            //생성하여  select DOM에 부착하자!!
+            
+            let icon=document.getElementById("icon");
+
+            for(let i=0;i<foodName.length;i++){
+                //select DOM 에 부착 
+                let op=document.createElement("option"); // <option></option>
+                op.text=foodName[i];//<option>국수</option>
+                op.value=iconArray[i];//<option value="noodle.png">국수</option>
+                icon.add(op);
+            }
+
+            icon.addEventListener("change", function(){
+                let pic = document.getElementById("pic");
+                pic.src="../images/marker/"+this.value;
+            });
+        }
+
+        addEventListener("load", function(){
+            init();
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="aside">
+            <input type="text" placeholder="상호명">
+            <input type="text" placeholder="위도,경도">
+            <input type="text" placeholder="URL">
+            <select id="icon">
+                <option>마커 선택</option>
+            </select>
+            <img id="pic">
+            <textarea></textarea>
+            <button>등록</button>
+
+        </div>
+        <div class="content" id="content"></div>
+    </div>
+
+</body>
+</html>

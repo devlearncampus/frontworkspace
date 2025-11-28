@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            width: 1200px;
+            height: 500px;
+            background-color: aqua;
+            margin: auto;
+        }
+        .aside{
+            width: 200px;
+            height: 100%;
+            background-color: antiquewhite;
+            float: left;
+        }
+        .aside *{
+            width: 90%;
+            margin-bottom: 3px;
+        }
+        .aside img{
+            width: 90%;
+            height: 100px;
+        }
+        textarea{
+            height: 150px;
+        }
+        .content{
+            width: 1000px;
+            height: 100%;
+            background-color: aquamarine;
+            float:left;
+        }
+    </style>
+    <script>
+        //마커 이미지 배열 
+        let foodName=["비빔밥","햄버거","국수","초밥"]; //<option>비빔밥</option>
+        let iconArray=["bibimbap.png","burger.png","noodle.png","sushi.png"];//<option value="bibimbap.png">비빔밥</option>
+        let mapProp; //위도와 경도 정보를 가진 객체를 전역변수로 선언, 이유? 다른 함수에서 접근할 수 있도록
+        let map;//화면에 출력된 맵 정보를 가진 객체 , 자체가 맵
+
+        function init(){
+            //마커를 동적으로 채우기 !!
+            //icon 이라는 아이디로 메모리에 올라온 select DOM의 자식 요소인 option DOM을 동적으로 
+            //생성하여  select DOM에 부착하자!!
+            
+            let icon=document.getElementById("icon");
+
+            for(let i=0;i<foodName.length;i++){
+                //select DOM 에 부착 
+                let op=document.createElement("option"); // <option></option>
+                op.text=foodName[i];//<option>국수</option>
+                op.value=iconArray[i];//<option value="noodle.png">국수</option>
+                icon.add(op);
+            }
+
+            //완성된 select 박스에 change 이벤트 적용해보기
+            //이미지를 다른 것으로 선택할때마다 이미지 변경하여 보여줘야 하므로, 
+            icon.addEventListener("change", function(){
+                //alert("당신이 지금 선택한 이미지값은 "+icon.value);
+
+                //아래 코드에서의 this 는 이벤트를 일으킨 주체인 icon select DOM을 말한다
+                //alert("당신이 지금 선택한 이미지값은 "+this.value);
+                //문서내의 pic 이라는 img DOM의 src 속성값을 this.value 교체
+                document.getElementById("pic").src="../images/marker/"+this.value;
+            });
+
+            //화면에 구글맵 렌더링하기
+            mapProp= {
+                center:new google.maps.LatLng(37.49992, 127.0304),
+                zoom:15,  //값이 커질 수록 인공위성이 바라보는 카메라배율 지구와 가까워짐
+            };
+
+            map = new google.maps.Map(document.getElementById("content"),mapProp);  
+            
+            //addMarker(map, mapProp.center, document.getElementById("pic").src ); //잘 나오는지 테스트
+        }
+
+        //지금 떠 있는 구글맵에 마커 추가하기 
+        //매개변수 map : 기존에 떠 있는 구글맵 객체 
+        //매개변수 pos : 위도,경로 정보를 가진 객체 
+        function addMarker(map,  pos, path){
+            let marker = new google.maps.Marker({
+                position: pos , 
+                animation:google.maps.Animation.BOUNCE,
+                icon:{ //icon 에 대해서 경로만 적용하는것이 아니라, 더 많은 속성을 설정하기 위해 객체로 표현
+                    url: path,
+                    scaledSize: new google.maps.Size(75,70)                    
+                }
+            });
+            marker.setMap(map);  
+
+            //사용중인 마커에 정보창 띄우기
+            let infowindow = new google.maps.InfoWindow({
+                content:"이집 참 맛집"
+            });
+            infowindow.open(map,marker);
+        }
+
+        //맛집 등록(정보를 저장도 해야하고, 화면에 유저가 선택한 이미지가 마커로 뜨게처리..)
+        function regist(){
+           addMarker(map, mapProp.center, document.getElementById("pic").src );                  
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="aside">
+            <input type="text" placeholder="상호명">
+            <input type="text" placeholder="위도,경도">
+            <input type="text" placeholder="URL">
+            <select id="icon">
+                <option>마커 선택</option>
+            </select>
+            <img id="pic">
+            <textarea></textarea>
+            <button onClick="regist()">등록</button>
+
+        </div>
+        <div class="content" id="content"></div>
+    </div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYZnPpGlwgUBn1etA50w6Uzecg9aWmkxA&callback=init"></script>
+</body>
+</html>
