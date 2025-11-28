@@ -35,12 +35,14 @@
             float:left;
         }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         //마커 이미지 배열 
         let foodName=["비빔밥","햄버거","국수","초밥"]; //<option>비빔밥</option>
         let iconArray=["bibimbap.png","burger.png","noodle.png","sushi.png"];//<option value="bibimbap.png">비빔밥</option>
         let mapProp; //위도와 경도 정보를 가진 객체를 전역변수로 선언, 이유? 다른 함수에서 접근할 수 있도록
         let map;//화면에 출력된 맵 정보를 가진 객체 , 자체가 맵
+        let storeList=[]; //크기를 0인 배열 선언 , 전역변수로 선언한 이유는? 브라우저 닫을때까지는 상점 들을 모아놓기 위해 
 
         function init(){
             //마커를 동적으로 채우기 !!
@@ -82,7 +84,7 @@
         //지금 떠 있는 구글맵에 마커 추가하기 
         //매개변수 map : 기존에 떠 있는 구글맵 객체 
         //매개변수 pos : 위도,경로 정보를 가진 객체 
-        function addMarker(map,  pos, path){
+        function addMarker(map,  pos, path, msg){
             let marker = new google.maps.Marker({
                 position: pos , 
                 animation:google.maps.Animation.BOUNCE,
@@ -95,28 +97,54 @@
 
             //사용중인 마커에 정보창 띄우기
             let infowindow = new google.maps.InfoWindow({
-                content:"이집 참 맛집"
+                content:msg
             });
             infowindow.open(map,marker);
         }
 
         //맛집 등록(정보를 저장도 해야하고, 화면에 유저가 선택한 이미지가 마커로 뜨게처리..)
         function regist(){
-           addMarker(map, mapProp.center, document.getElementById("pic").src );                  
+           //현실의 한 상점을 표현하기 위해서 OOP 에서 객체를 활용한다 
+           //클래스(거푸집)로  정의해도 되지만, 단순 데이터 저장용이라면 굳이 로직을 작성할 수있는 메서드를
+           //지원하는 클래스까지 정의할 필요는 없고, 인스턴스를 바로 사용할 수 있는 js 고전적 객체를 활용 
+
+           //JQuery 문법 구조는 $(누구를?-CSS선택자 그대로 이용).어떻게(메서드)
+           //아래의 객체는 그 자체가 인스턴스이다!!!
+           let store={
+                store_name:$("#store_id").val(), //document.getElementById("store_id").value 와 같다
+                latlng : $("#latlng").val(),  // 37.49992, 127.0304
+                url:$("#url").val(),
+                icon:$("#icon").val(),
+                info:$("#info").val()
+           };
+           console.log("방금 등록한 상점은 ", store);
+
+           //전역변수로 선언된 storeList에 상점 추가하기!!
+           storeList.push(store); //js 의 배열은 java 언어에서 java.util.List와 너무 흡사함 
+
+           //유저가 입력한 위도, 경도 문자열을 ,쉼표를 기준으로 나누고, 특히 공백이 들어잇다면 공백도 제거하자 
+           let arr = store.latlng.split(",");
+
+
+           //기존의 고정된 역삼동 우리학원 위도,경도를 쓰지 말고 위도,경도를 처리하는 객체를 새롭게 생성하자
+           //  "36.45455"   --> parseFloat()에 의해 "쌍따옴표" 를 제거하여 실제 실수화시킴
+           let pos=new google.maps.LatLng( parseFloat(arr[0].trim()) , parseFloat(arr[1].trim()) );
+
+           addMarker(map, pos, document.getElementById("pic").src, store.store_name+"<br>"+store.info  );                  
         }
     </script>
 </head>
 <body>
     <div class="container">
         <div class="aside">
-            <input type="text" placeholder="상호명">
-            <input type="text" placeholder="위도,경도">
-            <input type="text" placeholder="URL">
+            <input type="text" placeholder="상호명" id="store_id">
+            <input type="text" placeholder="위도,경도" id="latlng">
+            <input type="text" placeholder="URL" id="url">
             <select id="icon">
                 <option>마커 선택</option>
             </select>
             <img id="pic">
-            <textarea></textarea>
+            <textarea id="info"></textarea>
             <button onClick="regist()">등록</button>
 
         </div>
