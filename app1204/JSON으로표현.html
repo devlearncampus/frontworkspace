@@ -1,0 +1,21 @@
+<script>
+/*객체리터럴을 JSON 으로 변경 시 고생스럽게 json문자열 만드는 법*/
+//let user="{\"id\":\"batman\",\"name\":\"철수\",\"age\":30}";
+//console.log(user);
+
+/*객체리터럴을 JSON문자열로 쉽게 바꾸는 방법*/
+let user={
+    id:"batman",
+    name:"철수",
+    age:30
+}
+let data=JSON.stringify(user); //객체를 --> JSON 로 자동변환
+
+//문자열에 불과한 JSON을 다시 객체리터럴로 변환 
+let obj=JSON.parse(data);//이 시점부터는 객체이므로, 속성들을 점(.)찍고 사용할 수 있다.
+
+
+
+
+
+</script>
